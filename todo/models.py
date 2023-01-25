@@ -6,10 +6,16 @@ status_choices = [
     ('P', 'Pending'),
 ]
 
+priority_choices = [
+    (1, 'High'),
+    (2, 'Medium'),
+    (3, 'Low'),
+]
 class Todo(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     status = models.CharField(max_length=1, choices=status_choices)
+    priority = models.SmallIntegerField(max_length=1, choices=priority_choices, default=3)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     

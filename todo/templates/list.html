@@ -1,1 +1,46 @@
-{% extends 'base.html' %} {% block container %} {% endblock container %}
+{% extends 'base.html' %} 
+
+{% block container %} 
+<h2>List</h2>
+<p><a href="add/" class="btn btn-primary">ADD NEW</a></p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Priority</th>
+            <th>Title</th>
+            <th>Created_Date</th>
+            <th>Status</th>
+        </tr>
+        <tbody>
+            {% for todo in todos  %}
+            <tr>
+                {% if todo.priority == 1 %}
+                <td class="text-danger">{{todo.get_priority_display}}</td> <!--Böyle yapmamin sebei choiceslarda dbdeki haliyle degilde aciklama olarak yazdigimiz kismin gözükmesi icin!!!!-->
+               
+            {% else %}
+        <td class="text-info">{{todo.get_priority_display}}</td> 
+
+                {% endif %}
+                
+                <td>{{todo.title}}</td>
+                <td>{{todo.created_date}}</td>
+                {% if todo.status == "P" %}
+                <td class="text-danger">{{todo.get_status_display}}</td> <!-- !!!!Böyle yapmamin sebei choiceslarda dbdeki haliyle degilde aciklama olarak yazdigimiz kismin gözükmesi icin!!!! Sadece choices olanlarda olur (get_{name}_display format bu sekilde-->
+                {% else %}
+                <td class="text-success">{{todo.get_status_display}}</td> 
+
+                {% endif %}
+                <td>
+                    <a href="/update/{{todo.id}}">Update</a>
+                    <a href="/delete/{{todo.id}}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </thead>
+</table>
+
+
+
+{% endblock container %}
